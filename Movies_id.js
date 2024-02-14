@@ -6,6 +6,8 @@ dotenv.config();
 
 const apiKey = process.env.API_KEY;
 
+let popularMovieIds = [];
+
 // an async function with a page param that will fetch the popular movies in the given page
 const fetchPopularMovies = async (page) => {
   try {
@@ -39,8 +41,15 @@ const fetchAllPopularMovieIds = async () => {
   return allMovieIds;
 };
 
-// fetchAllPopularMovieIds().then((ids) => {
-//   console.log(ids); // This will log all the IDs concatenated from pages 1 to 10, errors will be logged if they occur
-// });
+fetchAllPopularMovieIds()
+  .then((ids) => {
+    popularMovieIds = ids;
+  })
+  .catch((error) => {
+    popularMovieIds = null;
+    console.error("there was an error at fetchAllPopularMovieIds:\n", error);
+  });
 
-export { fetchAllPopularMovieIds };
+export const getPopularMovieIds = async () => {
+  return fetchAllPopularMovieIds(); // This function already fetches and returns all movie IDs
+};
