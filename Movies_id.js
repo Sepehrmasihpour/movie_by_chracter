@@ -1,3 +1,5 @@
+// In this file we will get the movie IDs of the most popular movies based on the TMDB APi.
+
 import axios from "axios";
 import dotenv from "dotenv";
 dotenv.config();
@@ -20,6 +22,8 @@ const fetchPopularMovies = async (page) => {
   }
 };
 
+// gets the movie IDs of the movies in the first 10 pages of the most popular movies list
+// using the fetchPopularMovies function and a for loop
 const fetchAllPopularMovieIds = async () => {
   let allMovieIds = [];
   for (let page = 1; page <= 10; page++) {
@@ -34,5 +38,9 @@ const fetchAllPopularMovieIds = async () => {
   }
   return allMovieIds;
 };
+
+// fetchAllPopularMovieIds().then((ids) => {
+//   console.log(ids); // This will log all the IDs concatenated from pages 1 to 10, errors will be logged if they occur
+// });
 
 export { fetchAllPopularMovieIds };
