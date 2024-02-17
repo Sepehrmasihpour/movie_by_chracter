@@ -36,7 +36,7 @@ const getMoviedetails = async (movie_id) => {
 
 // in this function we will take an string input that is a movie chracter and look throug the 200 most popular
 // movies and return the first movies that the chracter has played in it
-const getChracterMovie = async (movieChracter) => {
+export const getChracterMovie = async (movieChracter) => {
   const popularMoviesIds = await getPopularMovieIds();
   const inputChracter = movieChracter.toLowerCase();
   let mostPopularResult;
@@ -63,5 +63,3 @@ const getChracterMovie = async (movieChracter) => {
     return null;
   }
 };
-
-console.log(await getChracterMovie("ben"));
