@@ -1,8 +1,10 @@
+// ! make unit tests for this module
+
 import axios from "axios";
 import dotenv from "dotenv";
 dotenv.config();
 
-import { fetchAllPopularIds } from "./movies_id.js";
+import { fetchAllPopularIds } from "./popularId.js";
 
 const apiKey = process.env.API_KEY;
 
@@ -14,7 +16,7 @@ const getCast = async (id: number, searchMovie: boolean) => {
           `https://api.themoviedb.org/3/movie/${id}/credits?api_key=${apiKey}`
         )
       : await axios.get(
-          `https://api.themoviedb.org/3/tv/${id}/credits?language=en-US?api_key=${apiKey}`
+          `https://api.themoviedb.org/3/tv/${id}/credits?language=en-US&api_key=${apiKey}`
         );
     const cast = response.data.cast; //we seperate the cast object from the credit response we get from the api
     return cast;
@@ -53,7 +55,7 @@ export const getChracterMovie = async (
     return null;
   }); //I use the popularIds module to get the popular Ids of the movies/tv shows based on search movies
   const inputChracter = chracter.toLowerCase();
-  let mostPopularResult;
+  let mostPopularResult: {};
   try {
     if (popularIds !== null) {
       for (const movie of popularIds) {
