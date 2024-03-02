@@ -46,3 +46,5 @@ export const fetchAllPopularIds = async (searchMovies: boolean) => {
   }
   return allIds;
 };
+
+module.exports = fetchAllPopularIds;
