@@ -33,7 +33,7 @@ const fetchPopularIds = async (page: number, searchMovies: boolean) => {
 // gets the movie/tv show IDs of the movies in the first 10 pages of the most popular movies list
 // using the fetchPopularIds function and a for loop
 export const fetchAllPopularIds = async (searchMovies: boolean) => {
-  let allIds = [];
+  let allIds: number[] = [];
   for (let page = 1; page <= 10; page++) {
     try {
       const ids = await fetchPopularIds(page, searchMovies);
