@@ -5,21 +5,23 @@ const apiKey = import.meta.env.VITE_API_KEY;
 // an async function with a page param that will fetch the popular movies or tv shows in the given page
 const fetchPopularIds = async (page: number, searchMovies: boolean) => {
   try {
-    if (searchMovies) {
-    }
-    const response = searchMovies //see if the search movie param is true if it is it will return movies
+    const response = searchMovies
       ? await axios.get(
-          `"https://api.themoviedb.org/3/discover/movie?include_adult=true&include_video=false&language=en-US&page=${page}&sort_by=popularity.desc&api_key=${apiKey}`
-        ) // and if it's false it will return popular tv shows
+          `https://api.themoviedb.org/3/discover/movie?include_adult=true&include_video=false&language=en-US&page=${page}&sort_by=popularity.desc&api_key=${apiKey}`
+        )
       : await axios.get(
           `https://api.themoviedb.org/3/tv/popular?language=en-US&page=${page}&api_key=${apiKey}`
         );
-    // Await the axios call to complete to get the popular movies in the input page
-    const results = response.data.results; //all the movie objects that we get back from the API
-    const idList = results.map((result: any) => result.id);
-    return idList;
+
+    const results = response.data?.results;
+    if (!results || !Array.isArray(results)) {
+      console.error("Invalid API response:", response.data);
+      return [];
+    }
+
+    return results.map((result: any) => result.id);
   } catch (error) {
-    console.error("Error: error happend for fetchPopularIds", error);
+    console.error("Error: error happened for fetchPopularIds", error);
     return null;
   }
 };
